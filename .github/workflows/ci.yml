@@ -40,6 +40,7 @@ jobs:
         run: |
           export TASKS_FILE="$PWD/smoke.json"
           JAR="$PWD/build/tasks/_task-manager_executableJarJvm/task-manager-jvm-executable.jar"
+          ls -l build/tasks
           chmod +x "$JAR"
           java -jar "$JAR" add "CI smoke test" --desc "created by CI"
           java -jar "$JAR" list
