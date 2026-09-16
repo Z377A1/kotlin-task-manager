@@ -34,12 +34,12 @@ jobs:
           ./kotlin run -- clear
 
       - name: Package
-        run: ./kotlin package --build-dir=build --format=executable-jar
+        run: ./kotlin package
 
       - name: Smoke-test packaged CLI
         run: |
           export TASKS_FILE="$PWD/smoke.json"
-          JAR="$PWD/build/tasks/_task-manager_executableJarJvm/task-manager-jvm-executable.jar"
+          JAR="$PWD/build/tasks/_kotlin-task-manager_executableJarJvm/kotlin-task-manager-jvm-executable.jar"
           ls -l build/tasks
           chmod +x "$JAR"
           java -jar "$JAR" add "CI smoke test" --desc "created by CI"
