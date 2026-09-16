@@ -39,7 +39,8 @@ jobs:
       - name: Smoke-test packaged CLI
         run: |
           export TASKS_FILE="$PWD/smoke.json"
-          JAR="$PWD/build/tasks/_kotlin-task-manager_executableJarJvm/kotlin-task-manager-jvm-executable.jar"
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          JAR="$PWD/build/tasks/_${REPO_NAME}_executableJarJvm/${REPO_NAME}-jvm-executable.jar"
           chmod +x "$JAR"
           java -jar "$JAR" add "CI smoke test" --desc "created by CI"
           java -jar "$JAR" list
