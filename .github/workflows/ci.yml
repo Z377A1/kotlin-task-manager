@@ -34,7 +34,7 @@ jobs:
           ./kotlin run -- clear
 
       - name: Package
-        run: ./kotlin package
+        run: ./kotlin package --build-dir=build --format=executable-jar
 
       - name: Smoke-test packaged CLI
         run: |
