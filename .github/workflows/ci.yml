@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Test
+        run: ./kotlin test
+
+      - name: Smoke-test build CLI
+        run: |
+          export TASKS_FILE="$PWD/smoke.json"
+          ./kotlin run -- add "CI smoke test" --desc "created by CI"
+          ./kotlin run -- list
+          ./kotlin run -- complete 1
+          ./kotlin run -- list --pending
+          ./kotlin run -- clear
+
+      - name: Package
+        run: ./kotlin package
+
+      - name: Smoke-test packaged CLI
+        run: |
+          export TASKS_FILE="$PWD/smoke.json"
+          JAR="$PWD/build/tasks/_task-manager_executableJarJvm/task-manager-jvm-executable.jar"
+          java -jar "$JAR" add "CI smoke test" --desc "created by CI"
+          java -jar "$JAR" list
+          java -jar "$JAR" complete 1
+          java -jar "$JAR" list --pending
+          java -jar "$JAR" clear

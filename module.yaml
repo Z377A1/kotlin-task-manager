@@ -1,0 +1,15 @@
+product: jvm/app
+
+settings:
+  kotlin:
+    version: 2.4.20
+    serialization:
+      enabled: true
+      format: json
+      version: 1.11.0
+  jvm:
+    release: 25
+    jdk:
+      version: 25
+      distributions:
+        - temurin
