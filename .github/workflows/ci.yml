@@ -26,7 +26,8 @@ jobs:
         run: chmod +x "$KOTLIN_WRAPPER"
 
       - name: Test
-        run: "$KOTLIN_WRAPPER" test
+        run: |
+          "$KOTLIN_WRAPPER" test
 
       - name: Smoke-test build CLI
         run: |
@@ -38,7 +39,8 @@ jobs:
           "$KOTLIN_WRAPPER" run -- clear
 
       - name: Package
-        run: "$KOTLIN_WRAPPER" package
+        run: |
+          "$KOTLIN_WRAPPER" package
 
       - name: Smoke-test packaged CLI
         run: |
