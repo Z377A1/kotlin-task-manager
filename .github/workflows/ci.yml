@@ -40,7 +40,6 @@ jobs:
         run: |
           export TASKS_FILE="$PWD/smoke.json"
           JAR="$PWD/build/tasks/_kotlin-task-manager_executableJarJvm/kotlin-task-manager-jvm-executable.jar"
-          ls -l build/tasks
           chmod +x "$JAR"
           java -jar "$JAR" add "CI smoke test" --desc "created by CI"
           java -jar "$JAR" list
