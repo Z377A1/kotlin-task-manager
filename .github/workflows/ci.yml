@@ -9,6 +9,10 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
+    env:
+      KOTLIN_WRAPPER: ${{ github.workspace }}/kotlin
+
     steps:
       - uses: actions/checkout@v7
 
@@ -19,22 +23,22 @@ jobs:
           java-version: "25"
 
       - name: Set execution permission for Kotlin CLI
-        run: chmod +x ./kotlin
+        run: chmod +x "$KOTLIN_WRAPPER"
 
       - name: Test
-        run: ./kotlin test
+        run: "$KOTLIN_WRAPPER" test
 
       - name: Smoke-test build CLI
         run: |
           export TASKS_FILE="$PWD/smoke.json"
-          ./kotlin run -- add "CI smoke test" --desc "created by CI"
-          ./kotlin run -- list
-          ./kotlin run -- complete 1
-          ./kotlin run -- list --pending
-          ./kotlin run -- clear
+          "$KOTLIN_WRAPPER" run -- add "CI smoke test" --desc "created by CI"
+          "$KOTLIN_WRAPPER" run -- list
+          "$KOTLIN_WRAPPER" run -- complete 1
+          "$KOTLIN_WRAPPER" run -- list --pending
+          "$KOTLIN_WRAPPER" run -- clear
 
       - name: Package
-        run: ./kotlin package
+        run: "$KOTLIN_WRAPPER" package
 
       - name: Smoke-test packaged CLI
         run: |
