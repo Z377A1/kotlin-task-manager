@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -16,7 +16,10 @@ jobs:
         uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: '25'
+          java-version: "25"
+
+      - name: Set execution permission for Kotlin CLI
+        run: chmod +x ./kotlin
 
       - name: Test
         run: ./kotlin test
